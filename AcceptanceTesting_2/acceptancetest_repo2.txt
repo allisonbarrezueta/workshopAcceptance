@@ -1,0 +1,66 @@
+Feature: Search games by name # features/filter_game_name.feature:3
+
+  @gamesByName
+  Scenario: Filter games that contain the word 'The' in their name                       # features/filter_game_name.feature:6
+    Given a set of games                                                                 # features/steps/filter_games.py:10 0.000s
+      | NAME                       | RELEASE DATE | DEVELOPER            | RATE |
+      | The Witcher 3: Wild Hunt   | 2015         | CD Projekt           | M    |
+      | Splatoon                   | 2016         | Nintendo             | T    |
+      | Super Smash Bros. Ultimate | 2018         | Bandai Namco Studios | E    |
+      | The Last of Us             | 2013         | Naughty Dog          | M    |
+    Given the user enters the name: The                                                  # features/steps/filter_games.py:20 0.000s
+    When the user search games by name                                                   # features/steps/filter_games.py:28 0.000s
+    Then 2 games will match                                                              # features/steps/filter_games.py:37 0.000s
+    And the names of these games are                                                     # features/steps/filter_games.py:42 0.000s
+      | NAME                     |
+      | The Witcher 3: Wild Hunt |
+      | The Last of Us           |
+    And the following message is displayed: 2 games were found containing the word: The. # features/steps/filter_games.py:54 0.000s
+
+  @gamesByName
+  Scenario: Filter games by name without finding result                                # features/filter_game_name.feature:24
+    Given a set of games                                                               # features/steps/filter_games.py:10 0.000s
+      | NAME                       | RELEASE DATE | DEVELOPER            | RATE |
+      | The Witcher 3: Wild Hunt   | 2015         | CD Projekt           | M    |
+      | Splatoon                   | 2016         | Nintendo             | T    |
+      | Super Smash Bros. Ultimate | 2018         | Bandai Namco Studios | E    |
+      | The Last of Us             | 2013         | Naughty Dog          | M    |
+    Given the user enters the name: 'xyz'                                              # features/steps/filter_games.py:20 0.000s
+    When the user search games by name                                                 # features/steps/filter_games.py:28 0.000s
+    Then 0 games will match                                                            # features/steps/filter_games.py:37 0.000s
+    And the following message is displayed: No game with the specified name was found. # features/steps/filter_games.py:54 0.000s
+
+Feature: Search games by developer # features/filter_study.feature:3
+
+  @gamesByStudy
+  Scenario: Filter games that has been developed by Nintendo                        # features/filter_study.feature:6
+    Given a set of games                                                            # features/steps/filter_games.py:10 0.000s
+      | NAME                       | RELEASE DATE | DEVELOPER            | RATE |
+      | The Witcher 3: Wild Hunt   | 2015         | CD Projekt           | M    |
+      | Splatoon                   | 2016         | Nintendo             | T    |
+      | Super Smash Bros. Ultimate | 2018         | Bandai Namco Studios | E    |
+      | The Last of Us             | 2013         | Naughty Dog          | M    |
+    Given the user chooses study: Nintendo                                          # features/steps/filter_games.py:24 0.000s
+    When the user search games by study                                             # features/steps/filter_games.py:28 0.000s
+    Then 1 games will match                                                         # features/steps/filter_games.py:37 0.000s
+    And the names of these games are                                                # features/steps/filter_games.py:42 0.000s
+      | NAME     |
+      | Splatoon |
+    And the following message is displayed: A game developed by Nintendo was found. # features/steps/filter_games.py:54 0.000s
+
+  @gamesByStudy
+  Scenario: Filter games by rating without finding results                                   # features/filter_study.feature:22
+    Given a set of games                                                                     # features/steps/filter_games.py:10 0.000s
+      | NAME                     | RELEASE DATE | DEVELOPER   | RATE |
+      | The Witcher 3: Wild Hunt | 2015         | CD Projekt  | M    |
+      | Splatoon                 | 2016         | Nintendo    | T    |
+      | The Last of Us           | 2013         | Naughty Dog | M    |
+    Given the user chooses study: Bandai Namco Studios                                       # features/steps/filter_games.py:24 0.000s
+    When the user search games by study                                                      # features/steps/filter_games.py:28 0.000s
+    Then 0 games will match                                                                  # features/steps/filter_games.py:37 0.000s
+    And the following message is displayed: No game developed by Bandai Namco Studios found. # features/steps/filter_games.py:54 0.000s
+
+2 features passed, 0 failed, 0 skipped
+4 scenarios passed, 0 failed, 0 skipped
+22 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m0.006s 
