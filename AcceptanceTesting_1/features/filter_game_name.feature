@@ -17,7 +17,7 @@ Feature: Search games by name
       | NAME                       |
       | The Witcher 3: Wild Hunt   |
       | The Last of Us             |
-      And the following message is displayed: 2 games were found containing the word: The
+      And the following message is displayed: 2 games were found containing the word: The.
 
 
   @gamesByName
