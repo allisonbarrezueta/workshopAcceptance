@@ -25,10 +25,6 @@ def step_impl(context, name):
 def step_impl(context, list_ratings):
     context.ratings = ast.literal_eval(list_ratings)
 
-@given("the user chooses study: {study_developer}")
-def step_impl(context, study_developer):
-    context.study = study_developer
-
 @when("the user search games by {criteria}")
 def step_impl(context, criteria):
 	if(criteria == 'name'):
@@ -39,8 +35,6 @@ def step_impl(context, criteria):
 			context.error = 'None'
 		else:
 			context.error = error
-	elif(criteria == 'study'):
-		result, message = get_game_developer(context.games, context.study)
 	context.result = result
 	context.message = message
 

@@ -1,6 +1,7 @@
 from behave import *
 from src.Game import *
 from src.Catalogue import *
+import ast
 
 #Condiciones antes de empezar cualquier STEP
 def before_scenario(context, scenario):
@@ -11,9 +12,6 @@ def step_impl(context):
 	game_list = []
 
 	for row in context.table:
-
-		elenco = []
-		idiomas = []
 		game = Game(row['NAME'], row['RELEASE DATE'], row['DEVELOPER'], row['RATE'])
 		game_list.append(game)
 
@@ -23,15 +21,18 @@ def step_impl(context):
 def step_impl(context, name):
 	context.name = name
 
+@given("the user chooses study: {study_developer}")
+def step_impl(context, study_developer):
+    context.study = study_developer
 
 @when("the user search games by {criteria}")
 def step_impl(context, criteria):
 	if(criteria == 'name'):
 		result, message = get_game_name(context.games, context.name)
-		print(result)
-		context.result = result
-		context.message = message
-
+	elif(criteria == 'study'):
+		result, message = get_game_developer(context.games, context.study)
+	context.result = result
+	context.message = message
 
 @then("{total} games will match")
 def step_impl(context, total):
@@ -55,3 +56,4 @@ def step_impl(context, message):
 	print(message)
 	print(context.message)
 	assert context.message == message
+

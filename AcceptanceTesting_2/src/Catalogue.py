@@ -2,9 +2,9 @@ def get_game_name(game_list, name):
 	"""Search games by name"""
 	result = list(filter(lambda x: name.lower() in x.name.lower(), game_list))
 	if len(result)==1:
-		message = 'A game was found containing the word: ' + name
+		message = 'A game was found containing the word: ' + name + '.'
 	elif len(result)>0:
-		message = str(len(result))+' games were found containing the word: ' + name
+		message = str(len(result))+' games were found containing the word: ' + name + '.'
 	else:
 		message = 'No game with the specified name was found.'
 	return result, message
@@ -20,7 +20,7 @@ def get_game_rating(game_list, ratings):
 
 	result = list(filter(lambda x: x.rating in ratings, game_list))
 	if len(result)==1:
-		message = 'A game was found'
+		message = 'A game was found.'
 	elif len(result)>0:
 		message = str(len(result))+' games were found.'
 	else:
@@ -41,7 +41,7 @@ def get_game_developer(game_list, developer):
 	elif len(result)>0:
 		message = str(len(result))+' games developed by: ' + developer +"were found."
 	else:
-		message = 'No game developed by '+developer+' found'
+		message = 'No game developed by '+developer+' found.'
 	return result, message
 
 
@@ -52,9 +52,9 @@ def get_game_release_date(game_list, start_year=2000, end_year=2020):
 	else:
 		result = list(filter(lambda x: start_year <= x.release <= end_year, game_list))
 		if len(result)==1:
-			message = 'A game was found'
+			message = 'A game was found.'
 		elif len(result)>0:
 			message = str(len(result))+' games were found.'
 		else:
-			message = 'No game was released between '+str (start_year)+' and '+ str (end_year)
+			message = 'No game was released between '+str (start_year)+' and '+ str (end_year)+'.'
 	return result, message
